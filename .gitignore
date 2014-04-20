@@ -44,3 +44,4 @@ build/Release
 node_modules
 
 dist/
+bld/

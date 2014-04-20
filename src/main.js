@@ -1,4 +1,3 @@
-var Router = require('./router');
-
-var router = new Router();
-router.start();
+var Game = require('./game');
+var game = new Game();
+game.start();

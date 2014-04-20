@@ -1,0 +1,24 @@
+@import "base/config";
+
+body {
+    background: $background-color url($background-image) repeat;
+}
+
+.container {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    #stage {
+        width: 100%;
+    }
+
+    .panel {
+        width: 100%;
+        max-width: 640px;
+        background: $focused-color;
+        border-radius: 2px;
+        box-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+    }
+}

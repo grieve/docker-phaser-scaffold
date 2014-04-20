@@ -16,7 +16,7 @@ gulp.task('scss', function(){
         ))
         .pipe(plugins.rename({suffix: '.min'}))
         .pipe(plugins.minifyCss())
-        .pipe(gulp.dest('dist/assets/css'));
+        .pipe(gulp.dest('bld/'));
 });
 
 gulp.task('lint', function(){
@@ -31,10 +31,16 @@ gulp.task('debug', ['lint'], function(){
         .pipe(plugins.plumber())
         .pipe(plugins.browserify({
             debug: true,
+            shim: {
+                phaser: {
+                    path: 'src/libs/phaser.js',
+                    exports: 'Phaser'
+                }
+            },
             transform: ['hbsfy']
         }))
         .pipe(plugins.concat('build.js'))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('bld/'));
 });
 
 gulp.task('production', ['lint'], function(){
@@ -46,7 +52,7 @@ gulp.task('production', ['lint'], function(){
         }))
         .pipe(plugins.uglify())
         .pipe(plugins.concat('build.js'))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('bld/'));
 });
 
 gulp.task('default', function(){
