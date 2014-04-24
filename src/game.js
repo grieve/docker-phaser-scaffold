@@ -1,27 +1,40 @@
+var _ = require('lodash');
 var Phaser = require('phaser');
-console.log(Phaser);
+var LogoScene = require('./logo-scene');
 
 var Game = function(){
-    this.handlers = {
-    };
     Phaser.Game.prototype.constructor.call(
         this,
         800, 480,
         Phaser.AUTO,
         'stage',
-        this
+        {
+            preload: _.bind(this.onPreload, this),
+            create: _.bind(this.onCreate, this),
+            update: _.bind(this.onUpdate, this)
+        }
     );
+
+    this.logoScene = new LogoScene({game: this});
 };
 
 Game.prototype = Object.create(Phaser.Game.prototype);
 
-Game.prototype.preload = function(a){
+Game.prototype.onPreload = function(){
+    this.logoScene.onPreload();
 };
 
-Game.prototype.create = function(a){
+Game.prototype.onCreate = function(){
+    this.logoScene.onCreate();
+
+    var game = this;
+    setTimeout(function(){
+        game.logoScene.onDestroy();
+    }, 5000);
 };
 
-Game.prototype.update = function(step){
+Game.prototype.onUpdate = function(step){
+    this.logoScene.onUpdate();
 };
 
 module.exports = Game;
