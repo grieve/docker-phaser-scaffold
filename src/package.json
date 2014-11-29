@@ -1,0 +1,40 @@
+{
+  "name": "minild-55",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/build.js",
+  "browser": {
+      "phaser": "./js/libs/phaser-wrap.js"
+  },
+  "dependencies": {
+    "browserify": "*",
+    "exoskeleton": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-minify-css": "*",
+    "handlebars": "*",
+    "hbsfy": "*",
+    "jquery": "*",
+    "lodash": "*",
+    "underscore": "*",
+    "vinyl-transform": "^1.0.0"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-minify-css": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-jshint": "*",
+    "gulp-sass": "*",
+    "gulp-load-plugins": "*",
+    "gulp-rename": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-plumber": "*",
+    "jshint-stylish": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Grieve <me@ryangrieve.com>",
+  "license": "BSD-2-Clause"
+}

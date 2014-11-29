@@ -1,5 +1,8 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
+var browserify = require('browserify');
+var hbsfy = require('hbsfy');
+var transform = require('vinyl-transform');
 
 gulp.task('scss', function(){
     return gulp.src('scss/main.scss')
@@ -16,43 +19,30 @@ gulp.task('scss', function(){
         ))
         .pipe(plugins.rename({suffix: '.min'}))
         .pipe(plugins.minifyCss())
-        .pipe(gulp.dest('bld/'));
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('lint', function(){
-    return gulp.src('src/main.js')
-        .pipe(plugins.plumber())
+    return gulp.src('js/main.js')
         .pipe(plugins.jshint('.jshintrc'))
         .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('debug', ['lint'], function(){
-    return gulp.src('src/main.js')
-        .pipe(plugins.plumber())
-        .pipe(plugins.browserify({
-            debug: true,
-            shim: {
-                phaser: {
-                    path: 'src/libs/phaser.js',
-                    exports: 'Phaser'
-                }
-            },
+    var browserified = transform(function(filename){
+        var brw = browserify({
+            debug:true,
             transform: ['hbsfy']
-        }))
-        .pipe(plugins.concat('build.js'))
-        .pipe(gulp.dest('bld/'));
-});
+        });
+        brw.ignore('nw.gui');
+        brw.add(filename);
+        return brw.bundle();
+    });
 
-gulp.task('production', ['lint'], function(){
-    return gulp.src('src/main.js')
-        .pipe(plugins.plumber())
-        .pipe(plugins.browserify({
-            debug: false,
-            transform: ['hbsfy']
-        }))
-        .pipe(plugins.uglify())
+    return gulp.src('js/main.js')
+        .pipe(browserified)
         .pipe(plugins.concat('build.js'))
-        .pipe(gulp.dest('bld/'));
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('default', function(){
@@ -62,6 +52,6 @@ gulp.task('default', function(){
 
 gulp.task('watch', function(){
     gulp.watch('scss/**/*.scss', ['scss']);
-    gulp.watch('src/**/*.js', ['debug']);
-    gulp.watch('src/**/*.hbs', ['debug']);
+    gulp.watch('js/**/*.js', ['debug']);
+    gulp.watch('js/**/*.hbs', ['debug']);
 });
