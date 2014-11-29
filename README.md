@@ -1,16 +1,5 @@
-Simple scaffold, nothing amazing here, just a workflow and tiny example project
+Simple docker build for phaser game development, uses browserify and gulp and servers over python SimpleHttpServer.
 
+Just run `make run` and visit `http://127.0.0.1:8000` once it's running.
 
-First get your dev and compilation dependancies...
-
-    npm install
-
-Then compile...
-
-    gulp
-
-You can also watch obviously...
-
-    gulp watch
-
-And then check out index.html in a browser, via a webserver obviously, CANVAS ORIGIN PERMISSIONS YAY
+`make watch` will do the same but run `gulp watch` as well.
